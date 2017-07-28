@@ -36,4 +36,8 @@ CREATE TABLE comments (
 
 \i scripts/blog_data.sql
 
+SELECT * FROM users;
 
+SELECT * FROM users WHERE id = 100;
+
+SELECT first_name, last_name FROM posts WHERE user_id = 200;
