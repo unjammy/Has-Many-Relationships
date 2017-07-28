@@ -12,7 +12,8 @@ CREATE TABLE users (
   first_name VARCHAR(90) DEFAULT NULL,
   last_name VARCHAR(90) DEFAULT NULL,
   created_at time NOT NULL DEFAULT now(),
-  updated_at time NOT NULL DEFAULT now()
+  updated_at time NOT NULL DEFAULT now(),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE posts(
@@ -21,7 +22,21 @@ CREATE TABLE posts(
   url VARCHAR(510) DEFAULT NULL,
   content TEXT DEFAULT NULL,
   created_at time NOT NULL DEFAULT now(),
-  updated_at time NOT NULL DEFAULT now()
+  updated_at time NOT NULL DEFAULT now(),
+  user_id INTEGER,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+CREATE TABLE comments (
+  id SERIAL NOT NULL,
+  body VARCHAR(510) DEFAULT NULL,
+  created_at time NOT NULL DEFAULT now(),
+  updated_at time NOT NULL DEFAULT now(),
+  user_id INTEGER,
+  post_id INTEGER
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id, post_id) REFERENCES users (id), posts (id)
 );
 
 \i scripts/blog_data.sql
