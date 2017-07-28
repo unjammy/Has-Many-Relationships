@@ -11,8 +11,8 @@ CREATE TABLE users (
   username VARCHAR(90) NOT NULL,
   first_name VARCHAR(90) DEFAULT NULL,
   last_name VARCHAR(90) DEFAULT NULL,
-  created_at time NOT NULL DEFAULT now(),
-  updated_at time NOT NULL DEFAULT now()
+  created_at timestamp NOT NULL DEFAULT now(),
+  updated_at timestamp NOT NULL DEFAULT now()
 );
 
 CREATE TABLE posts (
@@ -20,24 +20,19 @@ CREATE TABLE posts (
   title VARCHAR(180) DEFAULT NULL,
   url VARCHAR(510) DEFAULT NULL,
   content TEXT DEFAULT NULL,
-  created_at time NOT NULL DEFAULT now(),
-  updated_at time NOT NULL DEFAULT now(),
+  created_at timestamp NOT NULL DEFAULT now(),
+  updated_at timestamp NOT NULL DEFAULT now(),
   user_id INTEGER REFERENCES users (id)
 );
 
 CREATE TABLE comments (
   id SERIAL PRIMARY KEY NOT NULL,
   body VARCHAR(510) DEFAULT NULL,
-  created_at time NOT NULL DEFAULT now(),
-  updated_at time NOT NULL DEFAULT now(),
+  created_at timestamp NOT NULL DEFAULT now(),
+  updated_at timestamp NOT NULL DEFAULT now(),
   user_id INTEGER REFERENCES users (id),
   post_id INTEGER REFERENCES posts (id)
 );
 
 \i scripts/blog_data.sql
 
-SELECT * FROM users;
-
-SELECT * FROM users WHERE id = 100;
-
-SELECT first_name, last_name FROM posts WHERE user_id = 200;
