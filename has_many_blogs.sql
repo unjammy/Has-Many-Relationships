@@ -7,36 +7,31 @@ CREATE DATABASE has_many_blogs WITH OWNER has_many_user;
 \connect has_many_blogs
 
 CREATE TABLE users (
-  id SERIAL NOT NULL,
+  id SERIAL PRIMARY KEY NOT NULL,
   username VARCHAR(90) NOT NULL,
   first_name VARCHAR(90) DEFAULT NULL,
   last_name VARCHAR(90) DEFAULT NULL,
   created_at time NOT NULL DEFAULT now(),
-  updated_at time NOT NULL DEFAULT now(),
-  PRIMARY KEY (id)
+  updated_at time NOT NULL DEFAULT now()
 );
 
-CREATE TABLE posts(
-  id SERIAL NOT NULL,
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(180) DEFAULT NULL,
   url VARCHAR(510) DEFAULT NULL,
   content TEXT DEFAULT NULL,
   created_at time NOT NULL DEFAULT now(),
   updated_at time NOT NULL DEFAULT now(),
-  user_id INTEGER,
-  PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES users (id)
+  user_id INTEGER REFERENCES users (id)
 );
 
 CREATE TABLE comments (
-  id SERIAL NOT NULL,
+  id SERIAL PRIMARY KEY NOT NULL,
   body VARCHAR(510) DEFAULT NULL,
   created_at time NOT NULL DEFAULT now(),
   updated_at time NOT NULL DEFAULT now(),
-  user_id INTEGER,
-  post_id INTEGER
-  PRIMARY KEY (id),
-  FOREIGN KEY (user_id, post_id) REFERENCES users (id), posts (id)
+  user_id INTEGER REFERENCES users (id),
+  post_id INTEGER REFERENCES posts (id)
 );
 
 \i scripts/blog_data.sql
